@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat
 @Grab(group = 'joda-time', module = 'joda-time', version = '2.3')
 ])
 @Slf4j
-class Level3BandwidthDataRecipe {
+class Level3 {
 
     def LEVEL3_API_HOST = "https://ws.level3.com"
 
