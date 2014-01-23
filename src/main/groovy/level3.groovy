@@ -85,9 +85,15 @@ class Level3 {
      */
     def access_group() {
         String baseUrl = "/key/v1.0";
-        def xml = Unirest.get("$LEVEL3_API_HOST$baseUrl").headers(headers(baseUrl)).asString().body
-        def response = new XmlSlurper().parseText(xml)
-        return response.assignedAccessGroup.@id.text()
+        def response = Unirest.get("$LEVEL3_API_HOST$baseUrl").headers(headers(baseUrl)).asString()
+
+        if (response.code == 200) {
+            def xml = response.body
+            def payload = new XmlSlurper().parseText(xml)
+            return payload.assignedAccessGroup.@id.text()
+        } else {
+            throw new RuntimeException("Uh oh")
+        }
     }
 
     /**
@@ -146,6 +152,11 @@ class Level3 {
         return base64;
     }
 
+    def auth(config) {
+        this.config = config
+        access_group()
+    }
+
     def recipe_config() {
         [
                 name: "Level3",
@@ -159,7 +170,8 @@ class Level3 {
                         [
                                 [
                                         header: "Enter your Level3 Credentials",
-                                        fields: ["level3_access_key", "level3_secret_key"]
+                                        fields: ["level3_access_key", "level3_secret_key"],
+                                        submit: "auth"
                                 ]
                         ]
         ]
