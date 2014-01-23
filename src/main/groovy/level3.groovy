@@ -44,11 +44,11 @@ class Level3 {
 
                     def response = new XmlSlurper().parseText(xml)
 
-                    payload["total_monthly"] = response.summaryData.'*'.collect{ ["${it.name()}":it.text()] }.sum()
+                    payload["total_monthly"] = response.summaryData.'*'.collect { ["${it.name()}": it.text()] }.sum()
 
                     response.services.service.networkIdentifiers.ni.each { ni ->
                         def identifier = ni.serviceResource.text()
-                        payload[identifier] = ni.summaryData.'*'.collect{ ["${it.name()}":it.text()] }.sum()
+                        payload[identifier] = ni.summaryData.'*'.collect { ["${it.name()}": it.text()] }.sum()
                     }
                 }
             }
@@ -147,7 +147,22 @@ class Level3 {
     }
 
     def config() {
-
+        [
+                name: "Level3",
+                description: "Level3 CDN metrics",
+                fields:
+                        [
+                                ["name": "level3_access_key", "displayName": "Access Key", "fieldType": "text"],
+                                ["name": "level3_secret_key", "displayName": "Secret Key", "fieldType": "text"],
+                        ],
+                screens:
+                        [
+                                [
+                                        header: "Enter your Level3 Credentials",
+                                        fields: ["level3_access_key", "level3_secret_key"]
+                                ]
+                        ]
+        ]
     }
 
 }
