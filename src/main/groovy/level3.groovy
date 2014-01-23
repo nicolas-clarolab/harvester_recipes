@@ -146,7 +146,7 @@ class Level3 {
         return base64;
     }
 
-    def config() {
+    def recipe_config() {
         [
                 name: "Level3",
                 description: "Level3 CDN metrics",
