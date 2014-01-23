@@ -1,5 +1,6 @@
 import com.mashape.unirest.http.Unirest
 import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
 import groovy.util.logging.Slf4j
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
@@ -92,7 +93,7 @@ class Level3 {
             def payload = new XmlSlurper().parseText(xml)
             return payload.assignedAccessGroup.@id.text()
         } else {
-            throw new RuntimeException("$response.body")
+            throw new RuntimeException("${new JsonSlurper().parseText(response.body).message}")
         }
     }
 
@@ -163,8 +164,8 @@ class Level3 {
                 description: "Level3 CDN metrics",
                 fields:
                         [
-                                ["name": "level3_access_key", "displayName": "Access Key", "fieldType": "text"],
-                                ["name": "level3_secret_key", "displayName": "Secret Key", "fieldType": "text"],
+                                ["name": "level3_access_key", "displayName": "API Key ID", "fieldType": "text"],
+                                ["name": "level3_secret_key", "displayName": "API Secret Key", "fieldType": "text"],
                         ],
                 screens:
                         [
