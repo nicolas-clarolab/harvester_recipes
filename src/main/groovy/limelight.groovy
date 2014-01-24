@@ -178,6 +178,7 @@ class Limelight {
     def recipe_config() {
         [
                 name: "Limelight",
+                description: "Limelight CDN bandwidth and usage metrics",
                 fields:
                         [
                                 ["name": "username", "displayName": "Username", "fieldType": "text"],

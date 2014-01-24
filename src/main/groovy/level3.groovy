@@ -161,7 +161,7 @@ class Level3 {
     def recipe_config() {
         [
                 name: "Level3",
-                description: "Level3 CDN metrics",
+                description: "Level3 CDN bandwidth and usage metrics",
                 fields:
                         [
                                 ["name": "level3_access_key", "displayName": "API Key ID", "fieldType": "text"],
