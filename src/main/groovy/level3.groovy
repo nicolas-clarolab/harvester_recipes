@@ -93,7 +93,7 @@ class Level3 {
             def payload = new XmlSlurper().parseText(xml)
             return payload.assignedAccessGroup.@id.text()
         } else {
-            throw new RuntimeException("${new JsonSlurper().parseText(response.body).message}")
+            throw new RuntimeException("${new JsonSlurper().parseText(response.body)}")
         }
     }
 
