@@ -131,7 +131,7 @@ class CdNetworksDataRecipe {
                 fields:
                         [
                                 ["name": "cdnetworks_username", "displayName": "Username", "fieldType": "text"],
-                                ["name": "cdnetworks_password", "displayName": "Password", "fieldType": "password"],
+                                ["name": "cdnetworks_password", "displayName": "Password", "fieldType": "text"],
                         ],
                 screens:
                         [
