@@ -158,8 +158,24 @@ class Limelight {
         return httpClient
     }
 
+    def auth(config) {
+        try {
+            def id = config['username']
+            def secret = config['api_shared_key']
 
-    def config() {
+            def startDate = DateTime.now().withDayOfMonth(1).toString(DateTimeFormat.forPattern("YYYY-MM-dd"))
+            def endDate = DateTime.now().toString(DateTimeFormat.forPattern("YYYY-MM-dd"))
+
+            def params = [shortname: id, service: 'http,https', reportDuration: 'custom', endDate: endDate, startDate: startDate, sampleSize: 'daily']
+            def responses = getReport(id, secret, REST_URL, params);
+
+        } catch(Exception e) {
+            throw new RuntimeException("$e.message")
+        }
+    }
+
+
+    def recipe_config() {
         [
                 name: "Limelight",
                 fields:

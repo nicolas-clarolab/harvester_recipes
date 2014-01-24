@@ -115,5 +115,34 @@ class CdNetworksDataRecipe {
         return result
     }
 
+    def auth(config) {
+        try {
+            def sessionToken = login(config['cdnetworks_username'], config['cdnetworks_password'])
+            def apiKeys = getApiKeys(sessionToken)
+        } catch(Exception e) {
+            throw new RuntimeException("$e.message")
+        }
+    }
+
+    def recipe_config() {
+        [
+                name: "CDNetworks",
+                description: "CDNetworks bandwidth and usage data",
+                fields:
+                        [
+                                ["name": "cdnetworks_username", "displayName": "Username", "fieldType": "text"],
+                                ["name": "cdnetworks_password", "displayName": "Password", "fieldType": "password"],
+                        ],
+                screens:
+                        [
+                                [
+                                        header: "Enter your CDNetworks Credentials",
+                                        fields: ["cdnetworks_username", "cdnetworks_password"],
+                                        submit: "auth"
+                                ]
+                        ]
+        ]
+    }
+
 
 }
