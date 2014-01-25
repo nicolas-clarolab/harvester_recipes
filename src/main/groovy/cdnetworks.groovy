@@ -128,6 +128,7 @@ class CdNetworksDataRecipe {
         [
                 name: "CDNetworks",
                 description: "CDNetworks bandwidth and usage data",
+                run_every: 3600,
                 fields:
                         [
                                 ["name": "cdnetworks_username", "displayName": "Username", "fieldType": "text"],

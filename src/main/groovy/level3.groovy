@@ -162,6 +162,7 @@ class Level3 {
         [
                 name: "Level3",
                 description: "Level3 CDN bandwidth and usage metrics",
+                run_every: 3600,
                 fields:
                         [
                                 ["name": "level3_access_key", "displayName": "API Key ID", "fieldType": "text"],

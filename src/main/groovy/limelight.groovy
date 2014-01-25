@@ -179,6 +179,7 @@ class Limelight {
         [
                 name: "Limelight",
                 description: "Limelight CDN bandwidth and usage metrics",
+                run_every: 3600,
                 fields:
                         [
                                 ["name": "username", "displayName": "Username", "fieldType": "text"],
