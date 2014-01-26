@@ -33,6 +33,11 @@ class Cloudfront {
         }
     }
 
+    def auth(config) {
+        AmazonS3Client s3 = new AmazonS3Client(new StaticCredentialsProvider(new BasicAWSCredentials(config.username, config.password)))
+        s3.listBuckets() != null
+    }
+
     def loadUsage(config) throws IOException {
         processCSV(extractCSV(config))
     }
