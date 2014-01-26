@@ -35,7 +35,10 @@ class Cloudfront {
 
     def auth(config) {
         AmazonS3Client s3 = new AmazonS3Client(new StaticCredentialsProvider(new BasicAWSCredentials(config.username, config.password)))
-        s3.listBuckets().find { it.name == config.s3_billing_bucket }
+        if (null == s3.listBuckets().find { it.name == config.s3_billing_bucket }) {
+            throw RuntimeException("Unable to find bucket: $config.s3_billing_bucket")
+        }
+        true
     }
 
     def loadUsage(config) throws IOException {
