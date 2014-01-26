@@ -35,7 +35,7 @@ class Cloudfront {
 
     def auth(config) {
         AmazonS3Client s3 = new AmazonS3Client(new StaticCredentialsProvider(new BasicAWSCredentials(config.username, config.password)))
-        s3.listBuckets() != null
+        s3.listBuckets().find { it.name == config.s3_billing_bucket }
     }
 
     def loadUsage(config) throws IOException {
@@ -144,19 +144,15 @@ class Cloudfront {
                         [
                                 ["name": "username", "displayName": "Access Key ID", "fieldType": "text"],
                                 ["name": "password", "displayName": "Access Key Secret", "fieldType": "text"],
-                                ["name": "s3_billing_bucket", "displayName": "S3 Billing bucket", "fieldType": "table", source: "s3_buckets"]
+                                ["name": "s3_billing_bucket", "displayName": "S3 Billing bucket id", "fieldType": "text"]
                         ],
                 screens:
                         [
                                 [
                                         header: "Enter your Credentials",
-                                        fields: ["username", "password"],
+                                        fields: ["username", "password", "s3_billing_bucket"],
                                         submit: "auth"
-                                ],
-                                [
-                                        header: "Select the billing bucket id",
-                                        fields: ["s3_billing_bucket"]
-                                ],
+                                ]
                         ]
         ]
     }
