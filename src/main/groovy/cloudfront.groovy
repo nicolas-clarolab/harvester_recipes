@@ -37,7 +37,7 @@ class Cloudfront {
     def auth(config) {
         AmazonS3Client s3 = new AmazonS3Client(new StaticCredentialsProvider(new BasicAWSCredentials(config.username, config.password)))
         if (null == s3.listBuckets().find { it.name == config.s3_billing_bucket }) {
-            throw RuntimeException("Unable to find bucket: $config.s3_billing_bucket")
+            throw new RuntimeException("Unable to find bucket: $config.s3_billing_bucket" as String)
         }
         true
     }
@@ -95,8 +95,8 @@ class Cloudfront {
         for (String[] line : data) {
 
             if (line.length >= metricIdx) {
-                String usageType = line[usageTypeIdx]
-                String product = line[productIdx] != "" ? line[productIdx] : usageType
+                String product = line[productIdx]
+                String usageType = line[usageTypeIdx] != "" ? line[usageTypeIdx] : product
 
                 if (line[3] == "PayerLineItem") {
                     String itemDescription = line[itemDescriptionIdx]
@@ -129,10 +129,6 @@ class Cloudfront {
             }
         }
 
-        usageBuilder.sort {
-            a, b -> a.value.totalCost<=>b.value.totalCost
-        }
-
         usageBuilder["totalCost"] = totalCost
 
         usageBuilder
@@ -141,7 +137,7 @@ class Cloudfront {
 
     def recipe_config() {
         [
-                name: "AWS Cloufront",
+                name: "AWS Cloudfront",
                 description: "Bandwidth and usage metrics",
                 run_every: 3600,
                 fields:
