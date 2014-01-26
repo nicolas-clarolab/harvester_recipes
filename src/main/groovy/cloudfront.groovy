@@ -17,7 +17,8 @@ import org.joda.time.format.DateTimeFormat
 @Grapes([
 @Grab(group = 'com.amazonaws', module = 'aws-java-sdk', version = '1.3.33'),
 @Grab(group = 'com.googlecode.jcsv', module = 'jcsv', version = '1.4.0'),
-@Grab(group = 'commons-io', module = 'commons-io', version = '2.4')
+@Grab(group = 'commons-io', module = 'commons-io', version = '2.4'),
+@Grab(group = 'joda-time', module = 'joda-time', version = '2.3')
 ])
 @Slf4j
 class Cloudfront {
