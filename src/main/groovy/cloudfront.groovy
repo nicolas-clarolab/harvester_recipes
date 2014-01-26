@@ -130,7 +130,7 @@ class Cloudfront {
     }
 
 
-    def config() {
+    def recipe_config() {
         [
                 name: "AWS Cloufront",
                 description: "Bandwidth and usage metrics",
