@@ -52,7 +52,7 @@ class Limelight {
             def measures = response['measure']
             //calculate the total values for each measure
             def total = measures.inject([requests: 0, connections: 0, totalbits: 0, inbits: 0, outbits: 0]) { total, current ->
-                current.each { key, value ->
+                total.each { key, value ->
                     total[key] += current[key] * 86400 //seconds in a day
                 }
                 total
